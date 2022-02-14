@@ -6,13 +6,13 @@ import GUI from './gui';
 import Scene from './scene';
 import * as random from './random';
 
-let canvas = document.getElementById('render-canvas');
+let canvas: any = document.getElementById('render-canvas');
 canvas.width = window.innerWidth - (300 + 16 + 16 + 16);;
 canvas.height = window.innerHeight - (16 + 16);
 
-let scene = new Scene(canvas);
+let scene: any = new Scene(canvas);
 
-let props = {
+let props: any = {
   renderPointStars: true,
   renderStars: true,
   renderSun: true,

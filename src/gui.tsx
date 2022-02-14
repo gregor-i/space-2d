@@ -6,7 +6,10 @@ import * as random from './random';
 
 export default class GUI extends React.Component {
 
-  constructor(props) {
+  props: any
+  state: any
+
+  constructor(props : any) {
     super(props);
     this.state = {
       seed: this.props.seed

@@ -4,10 +4,11 @@
   "description": "Example of random number generation in WebGL using a permutation table texture.",
   "main": "dist/index.js",
   "scripts": {
-    "develop": "run-p server watch",
+    "develop": "run-p server watch typecheck",
     "server": "esbuild --serve=8080 --servedir=dist",
-    "watch": "esbuild src/index.jsx --outfile=dist/bundle.js --bundle --watch",
-    "build": "esbuild src/index.jsx --outfile=dist/bundle.js --bundle"
+    "watch": "esbuild src/index.tsx --outfile=dist/bundle.js --bundle --watch",
+    "build": "esbuild src/index.tsx --outfile=dist/bundle.js --bundle",
+    "typecheck": "tsc --noEmit --project ."
   },
   "author": "Rye Terrell",
   "license": "Unlicense",
@@ -21,7 +22,10 @@
     "rng": "^0.2.2"
   },
   "devDependencies": {
+    "@types/node": "^17.0.17",
+    "@types/react-dom": "^17.0.11",
     "esbuild": "^0.14.21",
-    "npm-run-all": "^4.1.5"
+    "npm-run-all": "^4.1.5",
+    "typescript": "^4.5.5"
   }
 }

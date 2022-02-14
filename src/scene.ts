@@ -10,7 +10,20 @@ import * as random from './random';
 
 export default class Scene {
 
-  constructor(canvas) {
+  canvas: any
+  pointStarTexture: any
+  ping: any
+  pong: any
+  regl: any
+  starRenderer: any
+  nebulaRenderer: any
+  copyRenderer: any
+  lastWidth: any
+  lastHeight: any
+  maxTextureSize: any
+  
+
+  constructor(canvas: any) {
     this.canvas = canvas;
     let regl = this.regl = REGL({ canvas: this.canvas });
     this.pointStarTexture = regl.texture();
