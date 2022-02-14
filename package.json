@@ -8,7 +8,7 @@
     "server": "esbuild --serve=8080 --servedir=dist",
     "watch": "esbuild src/index.tsx --outfile=dist/bundle.js --bundle --watch",
     "build": "esbuild src/index.tsx --outfile=dist/bundle.js --bundle",
-    "typecheck": "tsc --noEmit --project ."
+    "typecheck": "tsc --noEmit --project . --watch"
   },
   "author": "Rye Terrell",
   "license": "Unlicense",
