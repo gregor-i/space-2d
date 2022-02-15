@@ -1,12 +1,10 @@
-"use strict";
+import rng from 'rng';
 
-const rng = require('rng');
-
-export function generateRandomSeed() {
+export function generateRandomSeed(): string {
     return (Math.random() * 1000000000000000000).toString(36);
 }
 
-export function hashcode(str) {
+export function hashcode(str: string): number {
     var hash = 0;
     for (var i = 0; i < str.length; i++) {
         var char = str.charCodeAt(i)
@@ -15,6 +13,6 @@ export function hashcode(str) {
     return hash;
 }
 
-export function rand(seed, offset) {
+export function rand(seed: string, offset: number) {
   return new rng.MT(hashcode(seed) + offset);
 }

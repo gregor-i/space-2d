@@ -1,6 +1,6 @@
-"use strict";
+import REGL from "regl";
 
-export function createRenderer(regl) {
+export function createRenderer(regl: REGL.Regl): REGL.DrawCommand {
   return regl({
     vert: `
       precision highp float;
@@ -25,10 +25,10 @@ export function createRenderer(regl) {
       uv: regl.buffer([0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1])
     },
     uniforms: {
-      source: regl.prop('source'),
+      source: regl.prop<any, string>('source'),
     },
-    framebuffer: regl.prop('destination'),
-    viewport: regl.prop('viewport'),
+    framebuffer: regl.prop<any, string>('destination'),
+    viewport: regl.prop<any, string>('viewport'),
     count: 6
   });
 }

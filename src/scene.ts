@@ -1,6 +1,4 @@
-"use strict";
-
-const REGL = require('regl');
+import REGL from 'regl';
 
 import * as pointStars from './point-stars';
 import * as star from './star';
@@ -10,20 +8,20 @@ import * as random from './random';
 
 export default class Scene {
 
-  canvas: any
-  pointStarTexture: any
-  ping: any
-  pong: any
-  regl: any
-  starRenderer: any
-  nebulaRenderer: any
-  copyRenderer: any
-  lastWidth: any
-  lastHeight: any
-  maxTextureSize: any
+  canvas: HTMLCanvasElement
+  pointStarTexture: REGL.Texture2D
+  ping: REGL.Framebuffer2D
+  pong: REGL.Framebuffer2D
+  regl: REGL.Regl
+  starRenderer: REGL.DrawCommand
+  nebulaRenderer: REGL.DrawCommand
+  copyRenderer: REGL.DrawCommand
+  lastWidth: number | null
+  lastHeight: number | null
+  maxTextureSize: number
   
 
-  constructor(canvas: any) {
+  constructor(canvas: HTMLCanvasElement) {
     this.canvas = canvas;
     let regl = this.regl = REGL({ canvas: this.canvas });
     this.pointStarTexture = regl.texture();
@@ -37,7 +35,7 @@ export default class Scene {
     this.maxTextureSize = regl.limits.maxTextureSize;
   }
 
-  render(props) {
+  render(props: any) {
     let ping = this.ping;
     let pong = this.pong;
     let regl = this.regl;
@@ -81,7 +79,7 @@ export default class Scene {
     rand = random.rand(props.seed, 1000);
     let nebulaCount = 0;
     if (props.renderNebulae) nebulaCount = Math.round(rand.random() * 4 + 1);
-    let nebulaOut = pingPong(ping, ping, pong, nebulaCount, (source, destination) => {
+    let nebulaOut = pingPong(ping, ping, pong, nebulaCount, (source: REGL.Framebuffer2D, destination: REGL.Framebuffer2D) => {
       this.nebulaRenderer({
         source: source,
         destination: destination,
@@ -99,7 +97,7 @@ export default class Scene {
     rand = random.rand(props.seed, 2000);
     let starCount = 0;
     if (props.renderStars) starCount = Math.round(rand.random() * 8 + 1);
-    let starOut = pingPong(nebulaOut, ping, pong, starCount, (source, destination) => {
+    let starOut = pingPong(nebulaOut, ping, pong, starCount, (source: REGL.Framebuffer2D, destination: REGL.Framebuffer2D) => {
       this.starRenderer({
         center: [rand.random(), rand.random()],
         coreRadius: rand.random() * 0.0,
@@ -115,7 +113,7 @@ export default class Scene {
     });
 
     rand = random.rand(props.seed, 3000);
-    let sunOut = false;
+    let sunOut: REGL.Framebuffer2D | boolean = false;
     if (props.renderSun) {
       sunOut = starOut === pong ? ping : pong;
       this.starRenderer({
@@ -142,7 +140,13 @@ export default class Scene {
 
 }
 
-function pingPong(initial, alpha, beta, count, func) {
+function pingPong(
+  initial: REGL.Framebuffer2D, 
+  alpha: REGL.Framebuffer2D, 
+  beta: REGL.Framebuffer2D, 
+  count: number, 
+  func: (source: REGL.Framebuffer2D, destination: REGL.Framebuffer2D) => void)
+{
   // Bail if the render count is zero.
   if (count === 0) return initial;
   // Make sure the initial FBO is not the same as the first

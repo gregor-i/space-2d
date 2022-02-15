@@ -1,6 +1,4 @@
-"use strict";
-
-export function generateTexture(width, height, density, brightness, prng) {
+export function generateTexture(width: number, height: number, density: number, brightness: number, prng: any) {
   // Determine the number of stars we're going to render.
   let count = Math.round(width * height * density);
   // Create a byte array for our texture.

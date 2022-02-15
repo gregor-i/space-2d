@@ -1,6 +1,6 @@
-"use strict";
+import REGL from "regl";
 
-export function createRenderer(regl) {
+export function createRenderer(regl : REGL.Regl): REGL.DrawCommand {
   return regl({
     vert: `
       precision highp float;
@@ -37,17 +37,17 @@ export function createRenderer(regl) {
       uv: regl.buffer([0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1])
     },
     uniforms: {
-      center: regl.prop('center'),
-      coreRadius: regl.prop('coreRadius'),
-      coreColor: regl.prop('coreColor'),
-      haloColor: regl.prop('haloColor'),
-      haloFalloff: regl.prop('haloFalloff'),
-      resolution: regl.prop('resolution'),
-      scale: regl.prop('scale'),
-      source: regl.prop('source')
+      center: regl.prop<any, string>('center'),
+      coreRadius: regl.prop<any, string>('coreRadius'),
+      coreColor: regl.prop<any, string>('coreColor'),
+      haloColor: regl.prop<any, string>('haloColor'),
+      haloFalloff: regl.prop<any, string>('haloFalloff'),
+      resolution: regl.prop<any, string>('resolution'),
+      scale: regl.prop<any, string>('scale'),
+      source: regl.prop<any, string>('source')
     },
-    framebuffer: regl.prop('destination'),
-    viewport: regl.prop('viewport'),
+    framebuffer: regl.prop<any, string>('destination'),
+    viewport: regl.prop<any, string>('viewport'),
     count: 6
   });
 }

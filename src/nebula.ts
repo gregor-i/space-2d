@@ -1,8 +1,7 @@
-"use strict";
+import vec2 from 'gl-vec2';
+import REGL from 'regl';
 
-const vec2 = require('gl-vec2');
-
-export function generateNoiseTexture(regl, rng, size) {
+export function generateNoiseTexture(regl: REGL.Regl, rng: any, size: number): REGL.Texture2D {
   let l = size * size * 2;
   let array = new Uint8Array(l);
   for (let i = 0; i < l; i++) {
@@ -20,7 +19,7 @@ export function generateNoiseTexture(regl, rng, size) {
   });
 }
 
-export function createRenderer(regl) {
+export function createRenderer(regl: REGL.Regl): REGL.DrawCommand {
   let pgWidth = 256;
   let pgTexture = generateNoiseTexture(regl, null, pgWidth);
 
@@ -106,17 +105,17 @@ export function createRenderer(regl) {
       uv: regl.buffer([0, 0, 1, 0, 1, 1, 0, 0, 1, 1, 0, 1])
     },
     uniforms: {
-      source: regl.prop('source'),
-      offset: regl.prop('offset'),
-      scale: regl.prop('scale'),
-      falloff: regl.prop('falloff'),
-      color: regl.prop('color'),
-      density: regl.prop('density'),
+      source: regl.prop<any, string>('source'),
+      offset: regl.prop<any, string>('offset'),
+      scale: regl.prop<any, string>('scale'),
+      falloff: regl.prop<any, string>('falloff'),
+      color: regl.prop<any, string>('color'),
+      density: regl.prop<any, string>('density'),
       tNoise: pgTexture,
       tNoiseSize: pgWidth
     },
-    framebuffer: regl.prop('destination'),
-    viewport: regl.prop('viewport'),
+    framebuffer: regl.prop<any, string>('destination'),
+    viewport: regl.prop<any, string>('viewport'),
     count: 6
   });
 }

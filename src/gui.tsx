@@ -4,13 +4,40 @@ import * as dg from 'dis-gui';
 
 import * as random from './random';
 
+type GUIProps = {
+  seed: string,
+  width: number,
+  height: number,
+
+  renderPointStars: boolean,
+  renderStars: boolean,
+  renderSun: boolean,
+  renderNebulae: boolean,
+  shortScale: boolean,
+  maxTextureSize: number,
+
+  onFinishChangeSeed: (seed: string) => void,
+  onFinishChangeWidth: (widht: number) => void,
+  onFinishChangeHeight: (height: number) => void,
+  onChangeRenderPointStars: (renderPointStars: boolean) => void,
+  onChangeRenderStars: (renderStars: boolean) => void,
+  onChangeRenderSun: (renderSun: boolean) => void,
+  onChangeRenderNebulae: (renderNebulae: boolean) => void,
+  onChangeShortScale: (shortScale: boolean) => void,
+}
+
+type GUIState = {
+  seed: string
+}
+
 export default class GUI extends React.Component {
 
-  props: any
-  state: any
+  props: GUIProps
+  state: GUIState
 
-  constructor(props : any) {
+  constructor(props : GUIProps) {
     super(props);
+    this.props = props
     this.state = {
       seed: this.props.seed
     };

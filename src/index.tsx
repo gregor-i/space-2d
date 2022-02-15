@@ -1,18 +1,16 @@
-"use strict";
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GUI from './gui';
 import Scene from './scene';
 import * as random from './random';
 
-let canvas: any = document.getElementById('render-canvas');
+let canvas: HTMLCanvasElement = document.getElementById('render-canvas') as HTMLCanvasElement;
 canvas.width = window.innerWidth - (300 + 16 + 16 + 16);;
 canvas.height = window.innerHeight - (16 + 16);
 
-let scene: any = new Scene(canvas);
+let scene: Scene = new Scene(canvas);
 
-let props: any = {
+let props = {
   renderPointStars: true,
   renderStars: true,
   renderSun: true,
@@ -47,7 +45,7 @@ ReactDOM.render(
   document.getElementById('gui')
 );
 
-function resize(width, height) {
+function resize(width: number | undefined, height: number | undefined) {
   if (width === undefined) width = canvas.width;
   if (height === undefined) height = canvas.height;
   canvas.width = width;
@@ -56,7 +54,7 @@ function resize(width, height) {
   scene.render(props);
 }
 
-function reflow(width, height) {
+function reflow(width: number, height: number) {
   let wAvailable = window.innerWidth - (300 + 16 + 16 + 16);
   let hAvailable = window.innerHeight - (16 + 16);
   if (width/height > wAvailable/hAvailable) {
@@ -74,46 +72,46 @@ function reflow(width, height) {
   canvas.style.top = 16 + 'px';
 }
 
-window.onresize = function() {
+window.onresize = function(): void {
   reflow(canvas.width, canvas.height);
 };
 
-function onFinishChangeSeed(value) {
+function onFinishChangeSeed(value: string): void {
   props.seed = value;
   scene.render(props);
 }
 
-function onFinishChangeWidth(width) {
+function onFinishChangeWidth(width: number): void {
   if (width === canvas.width) return;
   resize(Math.round(width), undefined);
 }
 
-function onFinishChangeHeight(height) {
+function onFinishChangeHeight(height: number): void {
   if (height === canvas.height) return;
   resize(undefined, Math.round(height));
 }
 
-function onChangeRenderPointStars(value) {
+function onChangeRenderPointStars(value: boolean): void {
   props.renderPointStars = value;
   scene.render(props);
 }
 
-function onChangeRenderStars(value) {
+function onChangeRenderStars(value: boolean): void {
   props.renderStars = value;
   scene.render(props);
 }
 
-function onChangeRenderSun(value) {
+function onChangeRenderSun(value: boolean): void {
   props.renderSun = value;
   scene.render(props);
 }
 
-function onChangeRenderNebulae(value) {
+function onChangeRenderNebulae(value : boolean): void {
   props.renderNebulae = value;
   scene.render(props);
 }
 
-function onChangeShortScale(value) {
+function onChangeShortScale(value: boolean): void {
   props.shortScale = value;
   scene.render(props);
 }
